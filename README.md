@@ -1,14 +1,22 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
+from flask_login import UserMixin
 
 app = Flask(__name__)
 # Banco de dados
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ecomerce.db'
 # Iniciar conexao
 db = SQLAlchemy(app)
+CORS(app)
 
-
-#Modelagem do produto
+#Modelagem 
+#Usuario (id, username, passoword)
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), nullable=False, unique=True)
+    passowrd = db.Column(db.String(80), nullable=True)
+    
 #linha = registro
 #coluna = informações produto( os campos que vou armazenar a informação)(id, name, price, description)
 class Product(db.Model):
