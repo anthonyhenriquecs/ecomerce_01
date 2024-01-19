@@ -41,6 +41,9 @@ class CartItem(db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id))    
 @application.route('/login', methods=["POST"])
+@application.route('/')
+def initial():
+    return 'API up'
 def login():
     data = request.json
     
@@ -185,6 +188,3 @@ def checkout():
 
 if __name__ == "__main__":
     application.run(debug=True)
-
-
-
